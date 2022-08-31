@@ -12,6 +12,7 @@ class girracount3View extends WatchUi.View {
     using Toybox.Time.Gregorian;
     using Toybox.Time;
     var times = [["23", "59", "End of Day"]];
+    var weekA = true;
 
     public function initialize() {
         View.initialize();
@@ -39,6 +40,15 @@ class girracount3View extends WatchUi.View {
                 break;
         }
 
+        var thisDay = t2day.day;
+        // HACK
+        // Very hacky, works only in september. Hardcoded week numbers
+        if ((1 <= thisDay <= 2) || (12 <= thisDay <= 16)) {
+            weekA = true;
+        } else {
+            weekA = false; // therefore is weekB
+        }
+
         // DEBUG
         // WARNING, APP IN DEV MODE
         times = [["0", "4", "aa"], ["0", "8", "ab"], ["0", "12", "ac"], ["0", "16", "ad"], ["0", "20", "ae"], ["0", "24", "af"], ["0", "28", "ag"]];
@@ -58,7 +68,13 @@ class girracount3View extends WatchUi.View {
                 }
             }
         }
+
+        if (nextEvent == false) {
+            nextEvent = ["23", "59", "End of Day"];
+        }
+
         System.println(nextEvent);
+        System.println(weekA);
         WatchUi.requestUpdate();
     }
 
