@@ -68,8 +68,6 @@ class girracount3View extends WatchUi.View {
             nextEvent = ["23", "59", "End of Day"];
         }
 
-        System.println(nextEvent);
-        System.println(weekA);
         WatchUi.requestUpdate();
     }
 
@@ -78,7 +76,7 @@ class girracount3View extends WatchUi.View {
         setLayout(Rez.Layouts.MainLayout(dc));
 
         var timer20s = new Timer.Timer();
-        timer20s.start(method(:timerCallback), 2000, true);
+        timer20s.start(method(:timerCallback), 20000, true);
         timerCallback();
     }
 
