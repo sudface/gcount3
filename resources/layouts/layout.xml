@@ -1,3 +1,22 @@
 <layout id="MainLayout">
-    <bitmap id="id_monkey" x="center" y="center" filename="../drawables/monkey.png" />
+    <text-area id="tUntil" x="0" y="20%" width="100%" height="35%" justification="Graphics.TEXT_JUSTIFY_CENTER">
+        <fonts>
+            <font>Gfx.FONT_NUMBER_THAI_HOT</font>
+            <font>Gfx.FONT_NUMBER_HOT</font>
+            <font>Gfx.FONT_LARGE</font>
+            <font>Gfx.FONT_MEDIUM</font>
+            <font>Gfx.FONT_SMALL</font>
+            <font>Gfx.FONT_TINY</font>
+            <font>Gfx.FONT_XTINY</font>
+        </fonts>
+    </text-area>
+    <text-area id="pName" x="0" y="60%" width="100%" height="20%" justification="Graphics.TEXT_JUSTIFY_CENTER">
+        <fonts>
+            <font>Gfx.FONT_LARGE</font>
+            <font>Gfx.FONT_MEDIUM</font>
+            <font>Gfx.FONT_SMALL</font>
+            <font>Gfx.FONT_TINY</font>
+            <font>Gfx.FONT_XTINY</font>
+        </fonts>
+    </text-area>
 </layout>

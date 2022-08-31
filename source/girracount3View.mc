@@ -13,6 +13,7 @@ class girracount3View extends WatchUi.View {
     using Toybox.Time;
     var times = [["23", "59", "End of Day"]];
     var weekA = true;
+    var nextEvent = false;
 
     public function initialize() {
         View.initialize();
@@ -41,22 +42,16 @@ class girracount3View extends WatchUi.View {
         }
 
         var thisDay = t2day.day;
-        // HACK
         // Very hacky, works only in september. Hardcoded week numbers
         if ((1 <= thisDay <= 2) || (12 <= thisDay <= 16)) {
             weekA = true;
         } else {
             weekA = false; // therefore is weekB
         }
-
-        // DEBUG
-        // WARNING, APP IN DEV MODE
-        times = [["0", "4", "aa"], ["0", "8", "ab"], ["0", "12", "ac"], ["0", "16", "ad"], ["0", "20", "ae"], ["0", "24", "af"], ["0", "28", "ag"]];
     }
 
     function timerCallback() {
         var today = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var nextEvent = false;
         for (var i = 0; i < times.size(); i += 1) {
             if (today.hour.toNumber() < times[i][0].toNumber()) {
                 nextEvent = times[i];
@@ -83,7 +78,7 @@ class girracount3View extends WatchUi.View {
         setLayout(Rez.Layouts.MainLayout(dc));
 
         var timer20s = new Timer.Timer();
-        timer20s.start(method(:timerCallback), 20000, true);
+        timer20s.start(method(:timerCallback), 2000, true);
         timerCallback();
     }
 
@@ -95,6 +90,15 @@ class girracount3View extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
+        if (nextEvent != false) {
+            var clockTime = System.getClockTime();
+            var tUntil = (nextEvent[0].toNumber() - clockTime.hour) * 60 + (nextEvent[1].toNumber() - clockTime.min);
+            var view = View.findDrawableById("tUntil") as Text;
+            view.setText(Lang.format("$1$", [tUntil.toString()]));
+
+            view = View.findDrawableById("pName") as Text;
+            view.setText(Lang.format("$1$", [nextEvent[2]]));
+        }
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
     }
